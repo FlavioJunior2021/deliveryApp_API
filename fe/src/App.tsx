@@ -1,8 +1,15 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable @typescript-eslint/no-extra-semi */		
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable linebreak-style */
+import React from 'react';
+import { Header } from './components/Header';
+import { Orders } from './components/Orders';
+
+import { GlobalStyles } from "./style/GlobalStyles";
 
 export function App(){
-  return <h1>Hello world</h1>;
+  return(
+    <React.Fragment>
+      <GlobalStyles />
+      <Header />
+      <Orders />
+    </React.Fragment>
+  );
 };
