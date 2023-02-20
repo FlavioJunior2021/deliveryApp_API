@@ -1,8 +1,8 @@
 export type Order = {
   _id: string,
   table: string,
-  price: string,
-  status: string,
+  price: number,
+  status: 'WAITING' | 'IN_PRODUCTION' | 'DONE',
 
   products: {
     _id: string,
@@ -14,3 +14,7 @@ export type Order = {
     };
   }[];
 }
+
+
+
+
