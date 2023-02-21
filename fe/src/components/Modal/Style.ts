@@ -99,3 +99,33 @@ export const OrdersDetails = styled.div`
     }
   }
 `;
+export const Actions = styled.footer`
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+  
+  .primary{
+    background-color: #333333;
+    border-radius: 48px;
+    border: 0;
+    color: white;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .secondary{
+    padding: 14px 24px;
+    color: red;
+    font-weight: bold;
+    border: 0;
+    background: transparent;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+`;
+

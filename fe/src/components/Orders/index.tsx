@@ -18,7 +18,22 @@ export function Orders() {
             "imagePath":"1676470202136-coca-cola.png"
         }
     }]
-}]
+  }]
+  const order2 = [{
+    "_id":"23523523523523523",
+    "table": "2",
+    "price": 35,
+    "status": "IN_PRODUCTION",
+    "products":[{
+        "_id":"23523523523523523",
+        "quantity": 8,
+        "product":{
+            "name": "Coca Cola",
+            "price": 7,
+            "imagePath":"1676470202136-coca-cola.png"
+        }
+    }]
+  }]
 
   return (
     <Container>
@@ -30,7 +45,7 @@ export function Orders() {
       <OrdersBoard
         icon="🧑‍🍳"
         title="Em produção"
-        orders={[]}
+        orders={order2}
       />
       <OrdersBoard
         icon="✅"
