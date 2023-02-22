@@ -5,11 +5,11 @@ import { categories } from '../../mocks/categories';
 import { Text } from '../Text';
 import { CategoriesItem, Icon } from './styles';
 
-export function Categories(){
+export function Categories() {
 
 	const [selectedCategory, setSelectedCategory] = useState('');
 
-	function handleSelectCategory(categoryId: string){
+	function handleSelectCategory(categoryId: string) {
 		const category = selectedCategory === categoryId ? '' : categoryId;
 		setSelectedCategory(category);
 	};
@@ -19,11 +19,11 @@ export function Categories(){
 			showsHorizontalScrollIndicator={false}
 			data={categories}
 			horizontal
-			contentContainerStyle={{paddingRight: 24}}
+			contentContainerStyle={{ paddingRight: 24 }}
 			keyExtractor={category => category._id}
-			renderItem={({item: category})=>{
+			renderItem={({ item: category }) => {
 				const isSelected = selectedCategory === category._id;
-				return(
+				return (
 					<CategoriesItem onPress={() => handleSelectCategory(category._id)}>
 						<Icon>
 							<Text opacity={isSelected ? 1 : 0.5}>
