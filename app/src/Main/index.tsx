@@ -4,8 +4,17 @@ import { Categories } from "../components/Categories";
 import { Container, CategoriesContainer, MenuContainer, Footer, FooterContainer } from "./styles";
 import { Menu } from "../components/Menu";
 import { Button } from "../components/Button";
+import { TableModal } from "../components/TableModal";
+import { useState } from "react";
 
 export function Main(){
+
+	const [isTableModalOpen, setIsTableModalOpen] = useState(false);
+
+	function handleSaveTable(table: string){
+		alert(`main table ${table}`);
+	}
+
 	return(
 		<>
 			<Container>
@@ -19,11 +28,16 @@ export function Main(){
 			</Container>
 			<Footer>
 				<FooterContainer>
-					<Button onPress={()=> alert('novo pedido')}>
+					<Button onPress={()=> setIsTableModalOpen(true)}>
 						Novo pedido
 					</Button>
 				</FooterContainer>
 			</Footer>
+			<TableModal
+				visible={isTableModalOpen}
+				onClose={()=> setIsTableModalOpen(false)}
+				onSave={handleSaveTable}
+			/>
 		</>
 	);
 }
