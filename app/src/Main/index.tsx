@@ -10,15 +10,21 @@ import { useState } from "react";
 export function Main(){
 
 	const [isTableModalOpen, setIsTableModalOpen] = useState(false);
+	const [selectedTable, setSelecteTable] = useState('');
 
 	function handleSaveTable(table: string){
-		alert(`main table ${table}`);
+		setSelecteTable(table);
+		setIsTableModalOpen(true);
+	}
+
+	function handleCancelOrder(){
+		setSelecteTable('');
 	}
 
 	return(
 		<>
 			<Container>
-				<Header />
+				<Header selectedTable={selectedTable} onCancelOrder={handleCancelOrder}/>
 				<CategoriesContainer >
 					<Categories />
 				</CategoriesContainer>
@@ -28,9 +34,11 @@ export function Main(){
 			</Container>
 			<Footer>
 				<FooterContainer>
-					<Button onPress={()=> setIsTableModalOpen(true)}>
-						Novo pedido
-					</Button>
+					{!selectedTable && (
+						<Button onPress={()=> setIsTableModalOpen(true)}>
+							Novo pedido
+						</Button>
+					)}
 				</FooterContainer>
 			</Footer>
 			<TableModal

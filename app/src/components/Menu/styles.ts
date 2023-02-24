@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const Product = styled.TouchableOpacity`
+export const ProductContainer = styled.TouchableOpacity`
 	flex-direction: row;
 	align-items: center;
 `;
@@ -16,7 +16,7 @@ export const ProductDetails = styled.View`
 export const Separator = styled.View`
 	width: 100%;
 	height: 1px;
-	background-color: #060600;
+	background-color: rgba(204, 204, 204, 0.3);
 	margin: 24px 0;
 `;
 export const AddToCartButton = styled.TouchableOpacity`

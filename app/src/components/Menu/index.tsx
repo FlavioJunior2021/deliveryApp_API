@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import { products } from "../../mocks/products";
+import { Product } from "../../types/Product";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { PlusCircle } from "../Icons/PlusCircle";
+import { ProductModal } from "../ProductModal";
 import { Text } from "../Text";
 
 
-import {Product,
+import {ProductContainer,
 	ProductImage,
 	ProductDetails,
 	Separator,
@@ -13,7 +16,23 @@ import {Product,
 } from './styles';
 
 export function Menu(){
+
+	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [selectedProduct, setselectedProduct] = useState<null | Product>(null);
+
+
+	function handleOpenModal(product: Product){
+		setIsModalVisible(true);
+		setselectedProduct(product)
+	}
+
 	return(
+		<>
+		<ProductModal
+			visible={isModalVisible}
+			onClose={()=> setIsModalVisible(false)}
+			product={selectedProduct}
+		/>
 		<FlatList
 			style={{marginTop: 32}}
 			contentContainerStyle={{paddingHorizontal: 24}}
@@ -21,7 +40,7 @@ export function Menu(){
 			data={products}
 			keyExtractor={product => product._id}
 			renderItem={({item: product}) => (
-				<Product>
+				<ProductContainer onPress={() => handleOpenModal(product)}>
 					<ProductImage source={{
 							uri: `http://192.168.18.3:3001/uploads/${product.imagePath}`
 						}}
@@ -40,8 +59,9 @@ export function Menu(){
 					<AddToCartButton>
 						<PlusCircle />
 					</AddToCartButton>
-				</Product>
+				</ProductContainer>
 			)}
 		/>
+		</>
 	);
 }
