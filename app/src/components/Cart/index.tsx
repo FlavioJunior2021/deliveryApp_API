@@ -1,9 +1,18 @@
 import { FlatList, TouchableOpacity } from "react-native";
 import { CartItem } from '../../types/CartItem';
 import { formatCurrency } from "../../utils/formatCurrency";
+import { Button } from "../Button";
+import { MinusCircle } from "../Icons/MinusCircle";
 import { PlusCircle } from "../Icons/PlusCircle";
 import { Text } from "../Text";
-import { Item, ProductContainer, Actions, Image, QuantityContainer, ProductDetails } from './styles';
+import { Item,
+	ProductContainer,
+	Actions,
+	Image,
+	QuantityContainer,
+	ProductDetails,
+	Summary,
+	TotalContainer } from './styles';
 
 type Props = {
 	cartItems: CartItem[];
@@ -11,9 +20,11 @@ type Props = {
 
 export function Cart({cartItems}: Props) {
 	return(
-		<FlatList
+		<>
+			<FlatList
 			data={cartItems}
 			keyExtractor={item => item.product._id}
+			style={{marginBottom: 20, maxHeight: 150}}
 			showsVerticalScrollIndicator={false}
 			renderItem={({item: cartItem}) => (
 				<Item>
@@ -42,11 +53,21 @@ export function Cart({cartItems}: Props) {
 							<PlusCircle />
 						</TouchableOpacity>
 						<TouchableOpacity>
-							<PlusCircle />
+							<MinusCircle />
 						</TouchableOpacity>
 					</Actions>
 				</Item>
 			)}
 		/>
+		<Summary>
+			<TotalContainer>
+				<Text color="#666">Total</Text>
+				<Text size={20} weight='600'>{formatCurrency(120)}</Text>
+			</TotalContainer>
+			<Button onPress={()=> alert('confirmar pedido')}>
+				Confirmar pedido
+			</Button>
+		</Summary>
+		</>
 	)
 };
