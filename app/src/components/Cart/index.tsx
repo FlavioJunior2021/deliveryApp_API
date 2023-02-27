@@ -25,6 +25,7 @@ type Props = {
 }
 
 export function Cart({cartItems, onAdd, onDecrement, onComfirmOrder}: Props) {
+	const [isLoaded, setIsLoaded] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 
 	const total = cartItems.reduce((acc, item) => {return acc + item.quantity * item.product.price}, 0);
@@ -91,7 +92,7 @@ export function Cart({cartItems, onAdd, onDecrement, onComfirmOrder}: Props) {
 					<Text color="#999">Seu carrinho esta vazio</Text>
 				)}
 			</TotalContainer>
-			<Button onPress={handleConfirmOrder} disable={cartItems.length === 0}>
+			<Button onPress={handleConfirmOrder} disable={cartItems.length === 0} loading={isLoaded}>
 				Confirmar pedido
 			</Button>
 		</Summary>

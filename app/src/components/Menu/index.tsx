@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
-import { products } from "../../mocks/products";
 import { Product } from "../../types/Product";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { PlusCircle } from "../Icons/PlusCircle";
@@ -16,10 +15,11 @@ import {ProductContainer,
 } from './styles';
 
 type Props = {
-	onAddToCart: (product: Product) => void
+	onAddToCart: (product: Product) => void;
+	products: Product[];
 }
 
-export function Menu({onAddToCart}: Props) {
+export function Menu({onAddToCart, products}: Props) {
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [selectedProduct, setselectedProduct] = useState<null | Product>(null);
