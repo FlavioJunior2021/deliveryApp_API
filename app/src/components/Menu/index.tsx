@@ -15,7 +15,11 @@ import {ProductContainer,
 	AddToCartButton
 } from './styles';
 
-export function Menu(){
+type Props = {
+	onAddToCart: (product: Product) => void
+}
+
+export function Menu({onAddToCart}: Props) {
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [selectedProduct, setselectedProduct] = useState<null | Product>(null);
@@ -29,9 +33,10 @@ export function Menu(){
 	return(
 		<>
 		<ProductModal
-			visible={isModalVisible}
-			onClose={()=> setIsModalVisible(false)}
-			product={selectedProduct}
+				visible={isModalVisible}
+				onClose={() => setIsModalVisible(false)}
+				product={selectedProduct}
+				onAddToCart={onAddToCart}
 		/>
 		<FlatList
 			style={{marginTop: 32}}
@@ -56,7 +61,7 @@ export function Menu(){
 							{formatCurrency(product.price)}
 						</Text>
 					</ProductDetails>
-					<AddToCartButton>
+					<AddToCartButton onPress={()=> onAddToCart(product)}>
 						<PlusCircle />
 					</AddToCartButton>
 				</ProductContainer>

@@ -10,14 +10,25 @@ type Props = {
 	visible: boolean,
 	onClose: () => void,
 	product: null | Product,
+	onAddToCart: (product: Product) => void
 }
 
-export function ProductModal({visible, onClose, product}: Props) {
+export function ProductModal({visible, onClose, product, onAddToCart}: Props) {
+
+	function handleAddToCart(){
+		onAddToCart(product!);
+		onClose();
+	}
+
 	if(!product){
 		return null;
 	}
 	return(
-		<Modal visible={visible} animationType="slide" presentationStyle='pageSheet' onRequestClose={onClose}>
+		<Modal visible={visible}
+			animationType="slide"
+			presentationStyle='pageSheet'
+		 	onRequestClose={onClose}
+		>
 			<Image
 				source={{
 					uri: `http://192.168.18.3:3001/uploads/${product?.imagePath}`,
@@ -58,7 +69,7 @@ export function ProductModal({visible, onClose, product}: Props) {
 						<Text color='#666'>Preço</Text>
 						<Text size={20} weight='600'>{formatCurrency(product.price)}</Text>
 					</PriceContainer>
-					<Button onPress={() => alert('adicionar ao pedido')}>Adicionar ao pedido</Button>
+					<Button onPress={handleAddToCart}>Adicionar ao pedido</Button>
 				</FooterContainer>
 			</Footer>
 		</Modal>

@@ -8,41 +8,71 @@ import { TableModal } from "../components/TableModal";
 import { useState } from "react";
 import { Cart } from "../components/Cart";
 import { CartItem } from "../types/CartItem";
-import { products } from "../mocks/products";
+import { Product } from "../types/Product";
+
 
 export function Main(){
 
 	const [isTableModalOpen, setIsTableModalOpen] = useState(false);
 	const [selectedTable, setSelecteTable] = useState('');
-	const [cartItems, setCartItems] = useState<CartItem[]>([
-		{
-			product: products[0],
-			quantity: 1
-		},
-		{
-			product: products[1],
-			quantity: 2
-		},
-	]);
+	const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
 	function handleSaveTable(table: string){
 		setSelecteTable(table);
 		setIsTableModalOpen(true);
 	}
-
-	function handleCancelOrder(){
+	function handleResetOrder(){
 		setSelecteTable('');
+		setCartItems([]);
+	}
+	function handleAddToCart(product: Product){
+		if(!selectedTable){
+			setIsTableModalOpen(true)
+		}
+		setCartItems((prevState) => {
+			const itemIndex = prevState.findIndex(
+				cartImte => cartImte.product._id === product._id
+			);
+			if(itemIndex < 0){
+				return prevState.concat({quantity: 1, product});
+			};
+			const newCartItens = [...prevState];
+			const item = newCartItens[itemIndex];
+			newCartItens[itemIndex] = {
+				...item,
+				quantity: item.quantity + 1
+			}
+			return newCartItens;
+		});
+	}
+	function handleDecrementCardItem(product: Product){
+		setCartItems((prevState) => {
+			const itemIndex = prevState.findIndex(
+				cartImte => cartImte.product._id === product._id
+			);
+			const item = prevState[itemIndex];
+			const newCartItens = [...prevState];
+			if(item.quantity === 1){
+				newCartItens.splice(itemIndex, 1);
+				return newCartItens;
+			}
+			newCartItens[itemIndex] = {
+				...item,
+				quantity: item.quantity - 1
+			}
+			return newCartItens;
+		});
 	}
 
 	return(
 		<>
 			<Container>
-				<Header selectedTable={selectedTable} onCancelOrder={handleCancelOrder}/>
+				<Header selectedTable={selectedTable} onCancelOrder={handleResetOrder}/>
 				<CategoriesContainer >
 					<Categories />
 				</CategoriesContainer>
 				<MenuContainer>
-					<Menu />
+					<Menu onAddToCart={handleAddToCart}/>
 				</MenuContainer>
 			</Container>
 			<Footer>
@@ -55,6 +85,9 @@ export function Main(){
 					{selectedTable && (
 						<Cart
 							cartItems={cartItems}
+							onAdd={handleAddToCart}
+							onDecrement={handleDecrementCardItem}
+							onComfirmOrder={handleResetOrder}
 						/>
 					)}
 				</FooterContainer>
