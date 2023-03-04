@@ -9,9 +9,10 @@ type Props = {
   onClose: () => void,
   onCancelOrder: () => Promise<void>;
   isLoading: boolean,
+  onChangeOrderStatus: () => void
 };
 
-export function Modal({visible, order, onClose, onCancelOrder, isLoading}: Props){
+export function Modal({visible, order, onClose, onCancelOrder, isLoading, onChangeOrderStatus}: Props){
   if(!visible || !order){
     return null;
   }
@@ -76,10 +77,19 @@ export function Modal({visible, order, onClose, onCancelOrder, isLoading}: Props
         </div>
       </OrdersDetails>
       <Actions>
-        <button type="button" className="primary" disabled={isLoading}>
-            <span>🧑‍🍳</span>
-            <strong>Iniciar produção</strong>
-        </button>
+        {order.status != 'DONE' && (
+          <button type="button" className="primary" disabled={isLoading} onClick={onChangeOrderStatus}>
+            <span>
+              {order.status === 'WAITING' && '⏱️'}
+              {order.status === 'IN_PRODUCTION' && '✅'}
+            </span>
+            <strong>
+              {order.status === 'WAITING' && 'Iniciar produção'}
+              {order.status === 'IN_PRODUCTION' && 'Concluir pedido'}
+
+            </strong>
+          </button>
+        )}
         <button type="button" className="secondary" onClick={onCancelOrder} disabled={isLoading}>
             <span>❌</span>
             <strong>Cancelar pedido</strong>
