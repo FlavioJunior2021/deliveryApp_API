@@ -1,56 +1,47 @@
 import { Container } from "./Style";
 import { Order } from "../../types/Order";
 import { OrdersBoard } from "../OrdersBoard";
+import { useEffect, useState } from "react";
+import { api } from "../../utils/api";
 
 export function Orders() {
 
-  const order = [{
-    "_id":"23523523523523523",
-    "table": "2",
-    "price": 35,
-    "status": "WAITING",
-    "products":[{
-        "_id":"23523523523523523",
-        "quantity": 2,
-        "product":{
-            "name": "Coca Cola",
-            "price": 7,
-            "imagePath":"1676470202136-coca-cola.png"
-        }
-    }]
-  }]
-  const order2 = [{
-    "_id":"23523523523523523",
-    "table": "2",
-    "price": 35,
-    "status": "IN_PRODUCTION",
-    "products":[{
-        "_id":"23523523523523523",
-        "quantity": 8,
-        "product":{
-            "name": "Coca Cola",
-            "price": 7,
-            "imagePath":"1676470202136-coca-cola.png"
-        }
-    }]
-  }]
+  const [orders,setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    api.get('/orders')
+      .then(({data}) => {
+        setOrders(data)
+      })
+  },[]);
+
+  const waiting = orders.filter((order) => order.status === 'WAITING');
+  const inProduction = orders.filter((order) => order.status === 'IN_PRODUCTION');
+  const done = orders.filter((order) => order.status === 'DONE');
+
+  function handleCancelOrder(orderId: string){
+    setOrders((prevState) => prevState.filter(order => order._id === orderId));
+  }
 
   return (
     <Container>
       <OrdersBoard
         icon="🕛"
         title="Fila de espera"
-        orders={order}
+        orders={waiting}
+        onCancelOrder={handleCancelOrder}
       />
       <OrdersBoard
         icon="🧑‍🍳"
         title="Em produção"
-        orders={order2}
+        orders={inProduction}
+        onCancelOrder={handleCancelOrder}
       />
       <OrdersBoard
         icon="✅"
         title="Feito"
-        orders={[]}
+        orders={done}
+        onCancelOrder={handleCancelOrder}
       />
     </Container>
   )

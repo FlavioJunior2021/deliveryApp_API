@@ -7,9 +7,11 @@ type Props = {
   visible: boolean,
   order: Order | null,
   onClose: () => void,
+  onCancelOrder: () => Promise<void>;
+  isLoading: boolean,
 };
 
-export function Modal({visible, order, onClose}: Props){
+export function Modal({visible, order, onClose, onCancelOrder, isLoading}: Props){
   if(!visible || !order){
     return null;
   }
@@ -74,11 +76,11 @@ export function Modal({visible, order, onClose}: Props){
         </div>
       </OrdersDetails>
       <Actions>
-        <button type="button" className="primary">
+        <button type="button" className="primary" disabled={isLoading}>
             <span>🧑‍🍳</span>
             <strong>Iniciar produção</strong>
         </button>
-        <button type="button" className="secondary">
+        <button type="button" className="secondary" onClick={onCancelOrder} disabled={isLoading}>
             <span>❌</span>
             <strong>Cancelar pedido</strong>
         </button>
