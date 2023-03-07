@@ -86,13 +86,12 @@ export function Modal({visible, order, onClose, onCancelOrder, isLoading, onChan
             <strong>
               {order.status === 'WAITING' && 'Iniciar produção'}
               {order.status === 'IN_PRODUCTION' && 'Concluir pedido'}
-
             </strong>
           </button>
         )}
         <button type="button" className="secondary" onClick={onCancelOrder} disabled={isLoading}>
             <span>❌</span>
-            <strong>Cancelar pedido</strong>
+            <strong>{order.status === 'DONE' ? 'Fechar pedido' : 'Cancelar pedido'}</strong>
         </button>
       </Actions>
      </ModalBody>

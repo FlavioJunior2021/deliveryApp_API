@@ -1,5 +1,6 @@
 import { Container } from "./Style";
 import { Order } from "../../types/Order";
+import socketio from "socket.io-client";
 import { OrdersBoard } from "../OrdersBoard";
 import { useEffect, useState } from "react";
 import { api } from "../../utils/api";
@@ -7,6 +8,15 @@ import { api } from "../../utils/api";
 export function Orders() {
 
   const [orders,setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    const io = socketio('http://localhost:3001',{
+      transports: ['websocket'],
+    });
+    io.on('orders@new', (order) => {
+      setOrders(prevState => [...prevState, order]);
+    });
+  },[]);
 
   useEffect(() => {
     api.get('/orders')
@@ -20,7 +30,7 @@ export function Orders() {
   const done = orders.filter((order) => order.status === 'DONE');
 
   function handleCancelOrder(orderId: string){
-    setOrders((prevState) => prevState.filter(order => order._id === orderId));
+    setOrders(prevState => prevState.filter(order => order._id === orderId));
   }
   function handleOrderStatusChange(orderId: string, status: Order['status']){
     setOrders((prevState) => prevState.map((order) => (

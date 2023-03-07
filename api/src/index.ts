@@ -1,5 +1,7 @@
 /* eslint-disable indent */
 import path from 'node:path';
+import http from 'node:http';
+import { Server } from 'socket.io';
 
 import express from 'express';
 import mongoose from 'mongoose';
@@ -8,9 +10,15 @@ import { router } from './router';
 
 mongoose.set('strictQuery', true);
 
+const app = express();
+const server = http.createServer(app);
+export const io = new Server(server);
+
+
 mongoose.connect('mongodb://0.0.0.0:27017')
 	.then(() => {
-		const app = express();
+    io.emit('orders@new');
+
 		const port = 3001;
 
     app.use((req, res, next)=>{
@@ -23,7 +31,7 @@ mongoose.connect('mongodb://0.0.0.0:27017')
     app.use(express.json());
     app.use(router);
 
-		app.listen(port, () => {
+		server.listen(port, () => {
 			console.log(`Example app listening on http://localhost:${port}`);
 		});
 
