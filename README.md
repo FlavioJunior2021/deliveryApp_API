@@ -1,16 +1,24 @@
-<h1 align='center'>WaiterApp</h1>
+<div align='center'>
+  <img src='https://user-images.githubusercontent.com/76819323/211413172-165ebf01-1187-4c82-9bd4-25717afc1358.png' />
+</div>
 
-O WaiterApp é um aplicativo desenvolvido para garçons, que permite que eles registrem pedidos de clientes de forma rápida e eficiente. O aplicativo é composto por duas partes principais: um aplicativo web, onde o garçom pode inserir os pedidos dos clientes, e um dashboard web, onde os pedidos são exibidos para facilitar o acompanhamento e gerenciamento.
-Tecnologias utilizadas
+<div align="center">
+  <image src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" />
+  <image src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
+  <image src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
+  <image src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <image src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+</div>
+    
+## 👨‍💻 Projeto
 
-<p1>O projeto foi desenvolvido utilizando as seguintes tecnologias:</p1>
+Waiter app é uma aplicação desenvolvida para ajudar no fluxo de pedidos de um restaurante. Por intermédio dele, os garçons e a cozinha estão mais conectados do que nunca.
 
-- [Express](https://expressjs.com/)
-- [Node.js](https://nodejs.org/en/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [MongoDB](https://www.mongodb.com/)
-- [ReactNative](https://reactnative.dev/)
-- [ReactJs](https://react.dev/)
+O projeto possui uma aplicação mobile e web que se complementam, o app mobile serve como menu para que os garçons possam criar pedidos dos clientes com na mesa que eles ocupam. A versão web é um dashboard todo que mostra o estado do pedido, para controle da cozinha. E a api serve como o centralizador de tudo, permitindo com que os dados sejam enviados de uma ponta a outra automaticamente.
+
+<a href='https://www.figma.com/file/5gGW0fthqsAq02TvHyJuLs/WAITERAPP?type=design&node-id=11-195&mode=design&t=k4unZB0MMzgMY8c6-0'>
+  <img src='https://user-images.githubusercontent.com/76819323/211413174-84698301-e65d-4251-87e3-c018ba9f3326.png' />
+</a>
 
 ### Features
 
